@@ -514,6 +514,18 @@ class LoginController extends BaseOidcController {
 			return $this->build403TemplateResponse($message, Http::STATUS_FORBIDDEN, ['reason' => 'invalid nonce']);
 		}
 
+		// Verify group
+		$groupRequired = $this->providerService->getSetting($providerId, ProviderService::SETTING_GROUP_REQUIRED, '0');
+		if ( $groupRequired ) {
+			$groupsAttribute = $this->providerService->getSetting($providerId, ProviderService::SETTING_MAPPING_GROUPS, 'groups');
+			$groupRequiredName = $this->providerService->getSetting($providerId, ProviderService::SETTING_GROUP_REQUIRED_NAME, 'nextcloud');
+			if (! isset($idTokenPayload->$groupsAttribute) || ! in_array($groupRequiredName, $idTokenPayload->$groupsAttribute) ) {
+				$this->logger->debug('User not in required group.');
+				$message = $this->l10n->t('Your account is prohibited from signing in.');
+				return $this->build403TemplateResponse($message, Http::STATUS_FORBIDDEN, ['reason' => 'access denied']);
+			}
+		}
+
 		// get user ID attribute
 		$uidAttribute = $this->providerService->getSetting($providerId, ProviderService::SETTING_MAPPING_UID, 'sub');
 		$userId = $idTokenPayload->{$uidAttribute} ?? null;

@@ -252,10 +252,24 @@
 			{{ t('user_oidc', 'To keep ids in plain text, but also preserve uniqueness of them across multiple providers, a prefix with the providers name is added.') }}
 		</p>
 		<NcCheckboxRadioSwitch :checked.sync="localProvider.settings.groupProvisioning" wrapper-element="div">
-			{{ t('user_oidc', 'Use group provisioning.') }}
+			{{ t('user_oidc', 'Use group provisioning') }}
 		</NcCheckboxRadioSwitch>
 		<p class="settings-hint">
 			{{ t('user_oidc', 'This will create and update the users groups depending on the groups claim in the id token. The Format of the groups claim value should be [{gid: "1", displayName: "group1"}, ...] or ["group1", "group2", ...]') }}
+		</p>
+		<NcCheckboxRadioSwitch :checked.sync="localProvider.settings.groupRequired" wrapper-element="div">
+			{{ t('user_oidc', 'Require User to be in specific group') }}
+		</NcCheckboxRadioSwitch>
+		<p>
+			<label for="group-required">{{ t('user_oidc', 'Required group') }}</label>
+			<input id="group-required"
+				v-model="localProvider.settings.groupRequiredName"
+				type="text"
+				placeholder="nextcloud"
+				:disabled="!localProvider.settings.groupRequired">
+		</p>
+		<p class="settings-hint">
+			{{ t('user_oidc', 'Block login if user has no group mapping or if user is not in the required group.') }}
 		</p>
 		<NcCheckboxRadioSwitch :checked.sync="localProvider.settings.checkBearer" wrapper-element="div">
 			{{ t('user_oidc', 'Check Bearer token on API and WebDav requests') }}

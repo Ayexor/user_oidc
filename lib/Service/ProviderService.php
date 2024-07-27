@@ -43,6 +43,8 @@ class ProviderService {
 	public const SETTING_MAPPING_EMAIL = 'mappingEmail';
 	public const SETTING_MAPPING_QUOTA = 'mappingQuota';
 	public const SETTING_MAPPING_GROUPS = 'mappingGroups';
+	public const SETTING_GROUP_REQUIRED = 'groupRequired';
+	public const SETTING_GROUP_REQUIRED_NAME = 'groupRequiredName';
 	public const SETTING_MAPPING_ADDRESS = 'mappingAddress';
 	public const SETTING_MAPPING_STREETADDRESS = 'mappingStreetaddress';
 	public const SETTING_MAPPING_POSTALCODE = 'mappingPostalcode';
@@ -67,6 +69,7 @@ class ProviderService {
 
 	public const BOOLEAN_SETTINGS_DEFAULT_VALUES = [
 		self::SETTING_GROUP_PROVISIONING => false,
+		self::SETTING_GROUP_REQUIRED => false,
 		self::SETTING_PROVIDER_BASED_ID => false,
 		self::SETTING_BEARER_PROVISIONING => false,
 		self::SETTING_UNIQUE_UID => true,
@@ -159,6 +162,8 @@ class ProviderService {
 			self::SETTING_MAPPING_QUOTA,
 			self::SETTING_MAPPING_UID,
 			self::SETTING_MAPPING_GROUPS,
+			self::SETTING_GROUP_REQUIRED,
+			self::SETTING_GROUP_REQUIRED_NAME,
 			self::SETTING_MAPPING_ADDRESS,
 			self::SETTING_MAPPING_STREETADDRESS,
 			self::SETTING_MAPPING_POSTALCODE,
